@@ -1,58 +1,71 @@
 <template>
   <div>
   <div>
-    <SearchDrink/>
+    <form>
+      <input type="text" v-model="search" 
+      placeholder="search a drink..">
+    </form>
   </div>
   <div>
-  <Drink v-for="drink in drinks" :key="drink.id" 
-  :id="drink.id" :drink="drink.drink"/>
+  <div v-for="drink in drinks" :key="drink.idDrink"> 
+  <nuxt-link :to="`/drinks/${drink.idDrink}`">
+    <div class="drink">
+    <p> {{ drink.strDrink }} </p>
+    <img :src="drink.strDrinkThumb" alt=""/> 
+    <p>Instructions:</p>
+    <p> {{ drink.strInstructions }} </p>
+    <div class="ing"> Ingridients: 
+      <ul>
+        <li>{{ drink.strIngredient1 }} </li>
+        <li>{{ drink.strIngredient2 }} </li>
+        <li>{{ drink.strIngredient3 }} </li>
+        <li>{{ drink.strIngredient4 }} </li>
+        <li>{{ drink.strIngredient5 }} </li>
+      </ul>
+  </div>
+  </div>
+</nuxt-link>
+</div>
 </div>
 </div>
 </template>
 
 <script>
-import Drink from '../../components/Drink.vue'
-import SearchDrink from '../../components/SearchDrink.vue'
 import axios from 'axios'
 
 export default {
-  components:{
-    Drink,
-    SearchDrink,
-  },
   data(){
     return {
       drinks: [],
-      search: ''
     }
   },
-  async created(){
-    const config = {
-      headers: {
-        Accept: 'application/json'
-      }
-    }
-    try{
-      const res = await axios.get('www.thecocktaildb.com/api/json/v1/1/random.php',
-      config)
-      console.log(res.data)
-      this.drinks = res.data
-    } catch(err){
-      console.log(err)
-    }
-  },
+ methods: {
+    async getAllDrinks(){
+      try{
+      const { data} = await axios.get(
+        'https://thecocktaildb.com/api/json/v1/1/search.php?s=')
 
-  // methods: {
-  //   searchDrink(){
-  //     if(!this.search){
-  //       return this.drinks
-  //     }else{
-  //       return this.drinks.filter(drink => 
-  //       drink.text.toLowerCase().includes(this.search.
-  //       toLowerCase()))
-  //     }
-  //   }
-  // },
+        this.drinks = data.drinks 
+      } catch(error) {
+      console.log('error', error)
+    }
+    
+    }, 
+    
+ },
+ computed:{
+    searchDrink(){
+      if(this.search === null){
+        return this.drinks.drink
+      }else{
+        return this.drinks.filter(drink => drink === this.drinks)
+    
+    }
+     }
+ },
+  created(){
+    this.getAllDrinks()
+  },
     head(){
         return {
             title: 'Drinks App',
@@ -65,7 +78,7 @@ export default {
             ]
         }
     }
-}
+  }
 </script>
 
 <style>
@@ -79,6 +92,15 @@ export default {
 }
 .button:hover {
   background-color: rgb(242, 181, 159);
+}
+.drink{
+  padding: 1rem; 
+  border: 1px dotted #ccc;
+  margin: 1rem 0;
+}
+img{
+  height: 250px;
+  width: 250px; 
 }
 
 </style>

@@ -1,6 +1,6 @@
 <template>
   <header class="header">
-  <h1 class="title">Drink App</h1>
+    <div> <h1 class="title">Drink App</h1></div>
   <ul>
     <li>
         <nuxt-link to="/">Home</nuxt-link>
@@ -23,7 +23,8 @@ export default {
 
 <style>
 .header{
-    display: flex; 
+    display: flex;
+    flex-wrap: wrap;  
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1rem; 
