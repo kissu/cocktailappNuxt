@@ -6,27 +6,24 @@
       placeholder="search a drink..">
     </form>
   </div>
-  <div>
-  <div v-for="drink in drinks" :key="drink.idDrink"> 
+  <div v-if="searchDrink.length">
+  <div v-for="drink in searchDrink" :key="drink.idDrink"> 
   <nuxt-link :to="`/drinks/${drink.idDrink}`">
+    <div class="drink-container">
+    <h3><strong>{{ drink.strDrink }}</strong></h3>
     <div class="drink">
-    <p> {{ drink.strDrink }} </p>
     <img :src="drink.strDrinkThumb" alt=""/> 
-    <p>Instructions:</p>
-    <p> {{ drink.strInstructions }} </p>
-    <div class="ing"> Ingridients: 
-      <ul>
-        <li>{{ drink.strIngredient1 }} </li>
-        <li>{{ drink.strIngredient2 }} </li>
-        <li>{{ drink.strIngredient3 }} </li>
-        <li>{{ drink.strIngredient4 }} </li>
-        <li>{{ drink.strIngredient5 }} </li>
-      </ul>
+    <ul class="ingr">
+      <li>{{ drink.strIngredient1 }} </li>
+      <li>{{ drink.strIngredient2 }} </li>
+      <li>{{ drink.strIngredient3 }} </li>
+    </ul>
   </div>
   </div>
 </nuxt-link>
 </div>
 </div>
+<div v-else>No Drinks found</div>
 </div>
 </template>
 
@@ -37,6 +34,7 @@ export default {
   data(){
     return {
       drinks: [],
+      search: ''
     }
   },
  methods: {
@@ -52,19 +50,29 @@ export default {
     
     }, 
     
- },
- computed:{
-    searchDrink(){
-      if(this.search === null){
-        return this.drinks.drink
-      }else{
-        return this.drinks.filter(drink => drink === this.drinks)
+  },
+ 
+   computed: { 
+    // searchDrink: function(){
+    //   if(this.search.trim().length === 0){
+    //     return this.drinks.filter((drink) => 
+    //     drink.strDrink.toLowerCase().includes(
+    //       this.search.trim().toLowerCase()))
+    //   }else{
+    //     return this.drinks
     
+    // }
+    //  }
+    searchDrink: function(){
+      return this.drinks.filter((drink) =>{
+        return drink.strDrink.toLowerCase().match(this.search)
+      })
     }
-     }
- },
+    },
   created(){
     this.getAllDrinks()
+    
+  
   },
     head(){
         return {
@@ -93,7 +101,7 @@ export default {
 .button:hover {
   background-color: rgb(242, 181, 159);
 }
-.drink{
+.drink-container{
   padding: 1rem; 
   border: 1px dotted #ccc;
   margin: 1rem 0;
@@ -101,6 +109,14 @@ export default {
 img{
   height: 250px;
   width: 250px; 
+  border-radius: 3px; 
+}
+.drink{
+  display: flex; 
+  gap: 250px;
+}
+.ingr{
+  list-style:disc; 
 }
 
 </style>
