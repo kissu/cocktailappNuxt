@@ -2,10 +2,10 @@
   <div>
     <nuxt-link to="/drinks"> Go Back </nuxt-link>
     <div>
-    <img :src="drink.strDrinkThumb" alt=""/> 
-      <h2>{{ drink.strDrink }}</h2>
-      <div class="ing"> <strong>Ingridients: </strong> 
-        <ul class="ingrid">
+    <img class="h-64 w-64 rounded" :src="drink.strDrinkThumb" alt=""/> 
+      <h2 class="mt-2"><strong>{{ drink.strDrink }}</strong></h2>
+      <div class="mt-2.5"> <strong>Ingridients: </strong> 
+        <ul class="max-w-lg list-disc flex flex-col flex-wrap justify-between pt-2.5 pr-0 pb-7 pl-5 ">
           <li>{{ drink.strIngredient1 }} </li>
           <li>{{ drink.strIngredient2 }} </li>
           <li>{{ drink.strIngredient3 }} </li>
@@ -14,7 +14,7 @@
         </ul>
     </div>
     <p><strong> Instructions: </strong></p>
-    <p class="instru"> {{ drink.strInstructions }} </p>
+    <p class="pt-2.5 pb-5 "> {{ drink.strInstructions }} </p>
     
     </div>
     <hr />
@@ -65,20 +65,3 @@ export default {
 }
 </script>
 
-<style>
-.ing{
-    margin-top: 10px; 
-}
-.ingrid{
-    max-width: 500px; 
-    list-style: disc;
-    display: flex; 
-    flex-direction: column; 
-    flex-wrap: wrap; 
-    justify-content: space-between; 
-    padding: 10px 0px 30px 20px; 
-}
-.instru{
-    padding: 10px 0px 20px;
-}
-</style>

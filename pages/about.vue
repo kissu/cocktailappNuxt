@@ -1,5 +1,5 @@
 <template>
-  <div class="about">
+  <div class="m-5 mb-12">
     <h1>About Drinks</h1>
     <br>
     <p>This is an app that displays different drinks.</p>
@@ -31,10 +31,3 @@ export default {
     }
 }
 </script>
-
-<style>
-.about{
-    margin: 20px; 
-    margin-bottom: 50px; 
-}
-</style>

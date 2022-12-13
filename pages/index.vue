@@ -1,11 +1,11 @@
 <template>
-    <div class="welcome">
+    <div class="m-5">
   <h2>Welcome to the Drink App!</h2>
 <div>
     <br>
     <div>Choose a drink!</div>
     <div>
-        <img class="welcome-img" src="~/assets/drinks.jpg"/>
+        <img class="h-3/4 w-3/4 mt-2.5" src="~/assets/drinks.jpg"/>
     </div>
 </div>
 </div>
@@ -27,13 +27,4 @@ export default {
     }
 }
 </script>
-<style>
-.welcome{
-    margin: 20px; 
-}
-.welcome-img{
-    height: 500px; 
-    width: 700px; 
-    margin-top: 10px; 
-}
-</style>
+
